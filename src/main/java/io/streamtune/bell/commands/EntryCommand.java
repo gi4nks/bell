@@ -6,8 +6,9 @@ import picocli.CommandLine;
 @TopCommand
 @CommandLine.Command(mixinStandardHelpOptions = true,  version = "1.0",
         subcommands = {
-        GetNoteCommand.class,
+        GetCommand.class,
+        LastCommand.class,
         ConfigurationCommand.class,
-        CleanupCommand.class, CreateNoteCommand.class})
+        CleanupCommand.class, CreateCommand.class})
 public class EntryCommand {
 }

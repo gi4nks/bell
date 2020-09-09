@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @CommandLine.Command(name = "create", description = "Create a note")
-public class CreateNoteCommand implements Runnable {
+public class CreateCommand implements Runnable {
     @Inject
     private NoteService noteService;
 

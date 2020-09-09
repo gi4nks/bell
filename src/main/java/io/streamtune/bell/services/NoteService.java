@@ -7,10 +7,12 @@ import java.util.List;
 
 public interface NoteService {
 
-    public NoteDTO findById(Long id);
-    public List<NoteDTO> findAll();
-    public NoteDTO create(String n);
-    public NoteDTO create(String n, List<String> labels);
-    public void delete(Long id);
-    public void truncateAll();
+    NoteDTO findById(Long id);
+    List<NoteDTO> findAll();
+    NoteDTO create(String n);
+    NoteDTO create(String n, List<String> labels);
+    void delete(Long id);
+    void truncateAll();
+
+    NoteDTO findLast();
 }

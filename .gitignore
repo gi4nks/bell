@@ -5,3 +5,10 @@ src/main/java/io/streamtune/bell/.DS_Store
 src/main/java/io/streamtune/.DS_Store
 src/main/java/io/.DS_Store
 src/main/java/.DS_Store
+.settings
+bell.iml
+.classpath
+.factorypath
+.project
+bell.iml
+.idea

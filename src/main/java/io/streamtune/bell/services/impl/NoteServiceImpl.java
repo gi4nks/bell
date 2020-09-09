@@ -94,4 +94,10 @@ public class NoteServiceImpl implements NoteService {
     public void truncateAll() {
         repository.deleteAll();
     }
+
+    @Override
+    @Transactional
+    public NoteDTO findLast() {
+        return mapper.toDto(repository.findLast());
+    }
 }
