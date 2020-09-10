@@ -10,10 +10,11 @@ import java.util.Optional;
 
 public interface LabelService {
 
-    public LabelDTO findByValue(String value);
-    public List<LabelDTO> findAll();
-    public void delete(Long id);
-    public void truncateAll();
+    LabelDTO findById(Long id);
+    LabelDTO findByValue(String value);
+    List<LabelDTO> findAll();
+    void delete(Long id);
+    void truncateAll();
 
     List<NoteDTO> findByLabel(String lbl);
 }

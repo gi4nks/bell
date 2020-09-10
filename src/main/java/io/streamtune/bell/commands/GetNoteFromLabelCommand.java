@@ -1,9 +1,7 @@
 package io.streamtune.bell.commands;
 
-import io.streamtune.bell.formatters.GetCommandOutputFormatter;
 import io.streamtune.bell.formatters.GetNotesFromLabelCommandFormatter;
 import io.streamtune.bell.services.LabelService;
-import io.streamtune.bell.services.NoteService;
 import io.streamtune.bell.services.dto.NoteDTO;
 import picocli.CommandLine;
 

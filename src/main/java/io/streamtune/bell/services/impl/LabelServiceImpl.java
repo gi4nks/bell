@@ -37,6 +37,12 @@ public class LabelServiceImpl implements LabelService {
     NoteMapper noteMapper;
 
     @Override
+    public LabelDTO findById(Long id) {
+        log.debug("Request to get Label : {}", id);
+        return mapper.toDto(repository.findById(id));
+    }
+
+    @Override
     @Transactional
     public LabelDTO findByValue(String value) {
         log.debug("Request to get Label : {}", value);
@@ -74,6 +80,8 @@ public class LabelServiceImpl implements LabelService {
 
         Optional<Label> olabel = repository.findByValue(lbl);
         if (olabel.isPresent()) {
+            System.out.println("I am here");
+
             return olabel.get().getNotes().stream()
                     .map(noteMapper::toDto).collect(Collectors.toList());
         }

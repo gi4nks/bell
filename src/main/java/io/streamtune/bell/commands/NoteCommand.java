@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @CommandLine.Command(name = "note", description = "Note commands", subcommands = { GetNoteCommand.class,
-        CreateNoteCommand.class, LastNoteCommand.class })
+        CreateNoteCommand.class, GetAllNotesCommand.class, LastNoteCommand.class })
 public class NoteCommand {
 }
 

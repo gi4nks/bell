@@ -8,10 +8,10 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class GetCommandOutputFormatter {
+public class GetNoteCommandOutputFormatter {
     private NoteDTO note;
 
-    public GetCommandOutputFormatter(NoteDTO note) {
+    public GetNoteCommandOutputFormatter(NoteDTO note) {
         this.note = note;
     }
 
