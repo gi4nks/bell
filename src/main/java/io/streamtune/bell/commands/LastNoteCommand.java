@@ -13,7 +13,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @CommandLine.Command(name = "last", description = "Show the value of the last note")
-public class LastCommand implements Runnable {
+public class LastNoteCommand implements Runnable {
     @Inject
     private NoteService service;
 

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @CommandLine.Command(name = "get", description = "Show the value of a note")
-public class GetCommand implements Runnable {
+public class GetNoteCommand implements Runnable {
     @Inject
     private NoteService service;
 
@@ -31,22 +31,6 @@ public class GetCommand implements Runnable {
     @Override
     public void run() {
         NoteDTO note = service.findById(Long.parseLong(this.id));
-        System.out.println(note.getValue());
-        System.out.print("{");
-
-        
-        List<String> lbls = note.getLabels().stream().map(l -> l.getValue()).collect(toList());
-        
-        String csv = String.join(",", lbls);
-        System.out.format(AnsiColors.ANSI_RED + "%s, " + AnsiColors.ANSI_RESET, csv);
-        /*
-        for (LabelDTO l : note.getLabels()) {
-            System.out.format(AnsiColors.ANSI_RED + "%s, " + AnsiColors.ANSI_RESET, l.getValue());
-        }
-        */
-        System.out.println("}");
-        System.out.format("[" + AnsiColors.ANSI_GREEN + "%s" + AnsiColors.ANSI_RESET + "]\n", note.getId());
-
         GetCommandOutputFormatter formatter = new GetCommandOutputFormatter(note);
         formatter.print();
     }
