@@ -60,18 +60,17 @@ public class NoteServiceImpl implements NoteService {
         note.setCreatedAt(new Date());
 
         Set<Label> lbls = new HashSet<>();
-
+        Label nl = null;
         for (String label : labels) {
             Optional<Label> ll = labelRepository.findByValue(label);
-            if (ll.isPresent())
-                lbls.add(ll.get());
-            else {
-                Label nl = new Label();
-                nl.setValue(label);
+            if (ll.isPresent()) {
+                nl = ll.get();
+            } else {
+                nl = new Label();
                 labelRepository.persist(nl);
-
-                lbls.add(nl);
             }
+
+            lbls.add(nl);
         }
 
         note.setLabels(lbls);
