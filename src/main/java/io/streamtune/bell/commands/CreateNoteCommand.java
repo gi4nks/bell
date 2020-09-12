@@ -13,7 +13,7 @@ import java.util.List;
 @CommandLine.Command(name = "create", description = "Create a note")
 public class CreateNoteCommand implements Runnable {
     @Inject
-    private NoteService noteService;
+    NoteService noteService;
 
     @CommandLine.Option(names = {"-n", "--note"}, description = "note to store")
     String note;

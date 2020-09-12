@@ -1,6 +1,7 @@
 package io.streamtune.bell.services.dto;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,7 @@ public class NoteDTO implements Serializable {
     private Long id;
     private String value;
     private List<LabelDTO> labels;
-    private Date createdAt;
+    private Instant createdAt;
 
     public Long getId() {
         return id;
@@ -37,12 +38,8 @@ public class NoteDTO implements Serializable {
         this.labels = labels;
     }
 
-    public Date getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     @Override

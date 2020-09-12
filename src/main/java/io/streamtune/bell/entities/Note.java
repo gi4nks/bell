@@ -1,11 +1,13 @@
 package io.streamtune.bell.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -32,16 +34,16 @@ public class Note implements Serializable {
     private String value;
 
     @Column(name="created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Instant createdAt = Instant.now();
 
     @ManyToMany()
     @JoinTable(
-            name = "NotesLabels",
-            joinColumns = { @JoinColumn(name = "note_id") },
-            inverseJoinColumns = { @JoinColumn(name = "label_id") }
+            name = "notes_labels",
+            joinColumns = { @JoinColumn(name = "note_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "label_id", referencedColumnName = "id") }
     )
     @IndexedEmbedded
+    @BatchSize(size = 20)
     private Set<Label> labels = new HashSet<>();
 
     public Note() {
@@ -71,11 +73,11 @@ public class Note implements Serializable {
         this.value = value;
     }
 
-    public Date getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -86,13 +88,12 @@ public class Note implements Serializable {
         Note note = (Note) o;
         return Objects.equals(id, note.id) &&
                 Objects.equals(value, note.value) &&
-                Objects.equals(createdAt, note.createdAt) &&
-                Objects.equals(labels, note.labels);
+                Objects.equals(createdAt, note.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, value, createdAt, labels);
+        return Objects.hash(id, value, createdAt);
     }
 
     @Override
@@ -101,7 +102,6 @@ public class Note implements Serializable {
                 "id=" + id +
                 ", value='" + value + '\'' +
                 ", createdAt=" + createdAt +
-                ", labels=" + labels +
                 '}';
     }
 }

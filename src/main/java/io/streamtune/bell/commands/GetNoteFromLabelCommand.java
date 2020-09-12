@@ -11,7 +11,7 @@ import java.util.List;
 @CommandLine.Command(name = "get", description = "Shows all the note in a label")
 public class GetNoteFromLabelCommand implements Runnable {
     @Inject
-    private LabelService service;
+    LabelService service;
 
     @CommandLine.Option(names = {"-l", "--lbl"}, description = "the label")
     String lbl;

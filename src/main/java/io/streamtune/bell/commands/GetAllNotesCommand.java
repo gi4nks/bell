@@ -11,7 +11,7 @@ import java.util.List;
 @CommandLine.Command(name = "all", description = "Show all notes")
 public class GetAllNotesCommand implements Runnable {
     @Inject
-    private NoteService service;
+    NoteService service;
 
     @Override
     public void run() {

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 @CommandLine.Command(name = "get", description = "Show the value of a label")
 public class GetLabelCommand implements Runnable {
     @Inject
-    private LabelService service;
+    LabelService service;
 
     @CommandLine.Option(names = {"-i", "--id"}, description = "the id of the note to label")
     String id;

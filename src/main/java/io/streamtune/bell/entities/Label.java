@@ -3,6 +3,7 @@ package io.streamtune.bell.entities;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,7 +19,7 @@ public class Label implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 1024)
+    @Column(length = 1024, unique = true)
     @FullTextField(analyzer = "labels")
     private String value;
 
@@ -58,13 +59,12 @@ public class Label implements Serializable {
         if (!(o instanceof Label)) return false;
         Label label = (Label) o;
         return Objects.equals(id, label.id) &&
-                Objects.equals(value, label.value) &&
-                Objects.equals(notes, label.notes);
+                Objects.equals(value, label.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, value, notes);
+        return Objects.hash(id, value);
     }
 
     @Override
@@ -72,7 +72,6 @@ public class Label implements Serializable {
         return "Label{" +
                 "id=" + id +
                 ", value='" + value + '\'' +
-                ", notes=" + notes +
                 '}';
     }
 }

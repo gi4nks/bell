@@ -11,7 +11,7 @@ import javax.inject.Inject;
 @CommandLine.Command(name = "last", description = "Show the value of the last note")
 public class LastNoteCommand implements Runnable {
     @Inject
-    private NoteService service;
+    NoteService service;
 
     @Override
     public void run() {

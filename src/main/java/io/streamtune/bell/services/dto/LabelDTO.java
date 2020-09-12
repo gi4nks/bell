@@ -22,7 +22,6 @@ public class LabelDTO implements Serializable {
         this.value = value;
     }
 
-
     @Override
     public String toString() {
         return "LabelDTO{" +

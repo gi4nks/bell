@@ -8,7 +8,7 @@ import javax.inject.Inject;
 @CommandLine.Command(name = "cleanup", description = "Deletes all of your stored notes")
 public class CleanupCommand implements Runnable {
     @Inject
-    private NoteService noteService;
+    NoteService noteService;
 
     @Override
     public void run() {

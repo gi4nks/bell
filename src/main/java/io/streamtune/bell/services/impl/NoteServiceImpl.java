@@ -55,18 +55,18 @@ public class NoteServiceImpl implements NoteService {
     @Transactional
     public NoteDTO create(String n, List<String> labels) {
         Note note = new Note();
-
         note.setValue(n);
-        note.setCreatedAt(new Date());
 
         Set<Label> lbls = new HashSet<>();
-        Label nl = null;
         for (String label : labels) {
+            Label nl = null;
             Optional<Label> ll = labelRepository.findByValue(label);
             if (ll.isPresent()) {
+                System.out.println("I found already a label: " + label);
                 nl = ll.get();
             } else {
                 nl = new Label();
+                nl.setValue(label);
                 labelRepository.persist(nl);
             }
 

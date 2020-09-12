@@ -14,7 +14,7 @@ import java.util.List;
 @CommandLine.Command(name = "all", description = "Show all labels")
 public class GetAllLabelsCommand implements Runnable {
     @Inject
-    private LabelService service;
+    LabelService service;
 
     @Override
     public void run() {

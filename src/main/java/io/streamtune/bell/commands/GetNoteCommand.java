@@ -12,7 +12,7 @@ import javax.inject.Inject;
 @CommandLine.Command(name = "get", description = "Show the value of a note")
 public class GetNoteCommand implements Runnable {
     @Inject
-    private NoteService service;
+    NoteService service;
 
     @CommandLine.Option(names = {"-i", "--id"}, description = "the id of the note to show")
     String id;
