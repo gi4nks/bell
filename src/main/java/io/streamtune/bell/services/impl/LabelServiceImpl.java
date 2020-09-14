@@ -44,19 +44,6 @@ public class LabelServiceImpl implements LabelService {
 
     @Override
     @Transactional
-    public LabelDTO findByValue(String value) {
-        log.debug("Request to get Label : {}", value);
-        Optional<Label> l = repository.findByValue(value);
-
-        LabelDTO lbl = null;
-        if (l.isPresent())
-            lbl = mapper.toDto(l.get());
-
-        return lbl;
-    }
-
-    @Override
-    @Transactional
     public List<LabelDTO> findAll() {
         log.debug("Request to get all Labels");
         return repository.listAll().stream()
@@ -75,15 +62,15 @@ public class LabelServiceImpl implements LabelService {
 
     @Override
     @Transactional
-    public List<NoteDTO> findByLabel(String lbl) {
-        log.debug("Request to get all notes from label {0}", lbl);
-
-        Optional<Label> olabel = repository.findByValue(lbl);
-        if (olabel.isPresent()) {
-            return olabel.get().getNotes().stream()
-                    .map(noteMapper::toDto).collect(Collectors.toList());
-        }
+    public LabelDTO findByValue(String value) {
+        log.debug("Request to get Label : {}", value);
+        Optional<Label> l = repository.findByValue(value);
 
         return Collections.emptyList();
+        LabelDTO lbl = null;
+        if (l.isPresent())
+            lbl = mapper.toDto(l.get());
+
+        return lbl;
     }
 }

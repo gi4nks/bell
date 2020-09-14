@@ -1,14 +1,19 @@
 package io.streamtune.bell.entities;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Cacheable
@@ -22,9 +27,6 @@ public class Label implements Serializable {
     @Column(length = 1024, unique = true)
     @FullTextField(analyzer = "labels")
     private String value;
-
-    @ManyToMany(mappedBy = "labels")
-    private Set<Note> notes = new HashSet<>();
 
     public Label() {
     }
@@ -45,21 +47,16 @@ public class Label implements Serializable {
         this.value = value;
     }
 
-    public Set<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Set<Note> notes) {
-        this.notes = notes;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Label)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Label)) {
+            return false;
+        }
         Label label = (Label) o;
-        return Objects.equals(id, label.id) &&
-                Objects.equals(value, label.value);
+        return Objects.equals(id, label.id) && Objects.equals(value, label.value);
     }
 
     @Override
@@ -69,9 +66,6 @@ public class Label implements Serializable {
 
     @Override
     public String toString() {
-        return "Label{" +
-                "id=" + id +
-                ", value='" + value + '\'' +
-                '}';
+        return "Label{" + "id=" + id + ", value='" + value + '\'' + '}';
     }
 }

@@ -15,4 +15,5 @@ public interface NoteService {
     void truncateAll();
 
     NoteDTO findLast();
+    List<NoteDTO> findByLabel(String lbl);
 }

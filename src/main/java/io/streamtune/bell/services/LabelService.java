@@ -15,6 +15,4 @@ public interface LabelService {
     List<LabelDTO> findAll();
     void delete(Long id);
     void truncateAll();
-
-    List<NoteDTO> findByLabel(String lbl);
 }
