@@ -42,6 +42,10 @@ public class NoteDTO implements Serializable {
         return createdAt;
     }
 
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "NoteDTO{" +

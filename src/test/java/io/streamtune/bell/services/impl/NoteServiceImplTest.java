@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,5 +26,10 @@ class NoteServiceImplTest {
         service.create("note2", Arrays.asList(new String[] {"label1", "label3"}));
 
         Assertions.assertEquals("1", "1");
+    }
+
+    @Test
+    void findByLabelTest() {
+        List<NoteDTO> notes = service.findByLabel("label2");
     }
 }

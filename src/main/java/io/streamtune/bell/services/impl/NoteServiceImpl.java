@@ -5,6 +5,7 @@ import io.streamtune.bell.entities.Note;
 import io.streamtune.bell.repository.LabelRepository;
 import io.streamtune.bell.repository.NoteRepository;
 import io.streamtune.bell.services.NoteService;
+import io.streamtune.bell.services.dto.LabelDTO;
 import io.streamtune.bell.services.dto.NoteDTO;
 import io.streamtune.bell.services.mapper.LabelMapper;
 import io.streamtune.bell.services.mapper.NoteMapper;
@@ -86,6 +87,24 @@ public class NoteServiceImpl implements NoteService {
         if (n!= null) {
             repository.delete(n);
         }
+    }
+
+    @Override
+    @Transactional
+    public List<NoteDTO> findByLabel(String lbl) {
+        log.debug("Request to get all notes from label {0}", lbl);
+        Optional<Label> label = labelRepository.findByValue(lbl);
+
+        if (label.isPresent()) {
+            System.out.println("The label has been found");
+            List<Note> notes = repository.findByLabel(label.get());
+
+            return notes.stream()
+                    .map(mapper::toDto).collect(Collectors.toList());
+        }
+
+        return Collections.EMPTY_LIST;
+
     }
 
     @Override
