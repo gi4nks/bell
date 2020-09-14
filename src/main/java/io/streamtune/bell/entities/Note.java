@@ -1,26 +1,33 @@
 package io.streamtune.bell.entities;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 
 @Entity
 @Cacheable
-@NamedQueries({
-        @NamedQuery(name = "Note.truncate",
-                query = "DELETE FROM Note"),
-        @NamedQuery(name = "Note.findAll",
-                query = "SELECT c FROM Note c ORDER by c.createdAt DESC")
-})
+@NamedQuery(name = "Note.truncate", query = "DELETE FROM Note")
+@NamedQuery(name = "Note.findAll", query = "SELECT c FROM Note c ORDER by c.createdAt DESC")
+@NamedQuery(name = "Note.findByLabel", query = "SELECT n FROM Note n WHERE ?1 member of n.labels ORDER BY n.createdAt DESC")
 public class Note implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -33,15 +40,13 @@ public class Note implements Serializable {
     @KeywordField(name = "notes_sort", sortable = Sortable.YES, normalizer = "sort")
     private String value;
 
-    @Column(name="created_at")
+    @Column(name = "created_at")
     private Instant createdAt = Instant.now();
 
     @ManyToMany()
-    @JoinTable(
-            name = "notes_labels",
-            joinColumns = { @JoinColumn(name = "note_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "label_id", referencedColumnName = "id") }
-    )
+    @JoinTable(name = "notes_labels", joinColumns = {
+            @JoinColumn(name = "note_id", referencedColumnName = "id") }, inverseJoinColumns = {
+            @JoinColumn(name = "label_id", referencedColumnName = "id") })
     @IndexedEmbedded
     @BatchSize(size = 20)
     private Set<Label> labels = new HashSet<>();
@@ -83,12 +88,15 @@ public class Note implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Note)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Note)) {
+            return false;
+        }
         Note note = (Note) o;
-        return Objects.equals(id, note.id) &&
-                Objects.equals(value, note.value) &&
-                Objects.equals(createdAt, note.createdAt);
+        return Objects.equals(id, note.id) && Objects.equals(value, note.value) && Objects
+                .equals(createdAt, note.createdAt);
     }
 
     @Override
@@ -98,10 +106,6 @@ public class Note implements Serializable {
 
     @Override
     public String toString() {
-        return "Note{" +
-                "id=" + id +
-                ", value='" + value + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+        return "Note{" + "id=" + id + ", value='" + value + '\'' + ", createdAt=" + createdAt + '}';
     }
 }
