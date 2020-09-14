@@ -1,7 +1,9 @@
 package io.streamtune.bell.commands;
 
+import io.streamtune.bell.formatters.GetLabelCommandOutputFormatter;
 import io.streamtune.bell.formatters.GetNoteCommandOutputFormatter;
 import io.streamtune.bell.services.LabelService;
+import io.streamtune.bell.services.dto.LabelDTO;
 import io.streamtune.bell.services.dto.NoteDTO;
 import picocli.CommandLine;
 
@@ -12,19 +14,14 @@ public class GetLabelCommand implements Runnable {
     @Inject
     LabelService service;
 
-    @CommandLine.Option(names = {"-i", "--id"}, description = "the id of the note to label")
-    String id;
+    @CommandLine.Option(names = {"-v", "--value"}, description = "the value of the label")
+    String v;
 
     @Override
     public void run() {
-        /*
-        NoteDTO note = service.findById(Long.parseLong(this.id));
-        GetNoteCommandOutputFormatter formatter = new GetNoteCommandOutputFormatter(note);
-
-
+        LabelDTO label = service.findByValue(this.v);
+        GetLabelCommandOutputFormatter formatter = new GetLabelCommandOutputFormatter(label);
         formatter.print();
-
-         */
     }
 }
 

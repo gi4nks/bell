@@ -80,8 +80,6 @@ public class LabelServiceImpl implements LabelService {
 
         Optional<Label> olabel = repository.findByValue(lbl);
         if (olabel.isPresent()) {
-            System.out.println("I am here");
-
             return olabel.get().getNotes().stream()
                     .map(noteMapper::toDto).collect(Collectors.toList());
         }
