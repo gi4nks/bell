@@ -6,3 +6,4 @@ src/main/java/io/streamtune/bell/web/.DS_Store
 .vscode
 .settings
 bell.iml
+.project
