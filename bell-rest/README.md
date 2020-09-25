@@ -28,3 +28,8 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./target/bell-rest-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image.
+
+## Build
+1. docker build -f src/main/docker/Dockerfile.jvm -t gi4nks/bell-rest-jvm .
+2. docker tag <image tag> gi4nks/bell-rest-jvm:1.1
+3. docker push gi4nks/bell-rest-jvm:1.1

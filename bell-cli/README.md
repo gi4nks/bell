@@ -34,3 +34,9 @@ If you want to learn more about building native executables, please consult http
 java -jar ./target/bell-1.0.0-SNAPSHOT-runner.jar note create -n "the first note" -l "lbl1,lbl2,lbl3"
 
 java -jar ./target/bell-1.0.0-SNAPSHOT-runner.jar note create -n "the second note" -l "lbl1,lbl2,lbl4"
+
+
+
+## GET the kourier endpoint
+export SVC_URL=`kubectl get rt greeter -o yaml | yq read - 'status.url'` && \
+http $SVC_URL

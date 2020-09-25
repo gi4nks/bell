@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: bell-rest
+spec:
+  template:
+    spec:
+      containers:
+      - image: gi4nks/bell-rest-jvm:1.1
+        livenessProbe:
+          httpGet:
+            path: /health/live
+        readinessProbe:
+          httpGet:
+            path: /health/ready

@@ -40,7 +40,7 @@ public class LabelResource {
 
     @POST
     public Response create(@Valid LabelDTO labelDTO) {
-        log.debug("REST request to save Label : {}", labelDTO);
+        log.info("REST request to save Label : {}", labelDTO);
 
         if (labelDTO.getId() != null) {
             throw new BadRequestAlertException("A new label cannot already have an ID", "labelManagement", "idexists");
@@ -57,7 +57,7 @@ public class LabelResource {
 
     @GET
     public Response getAll() {
-        log.debug("REST request to get all Labels");
+        log.info("REST request to get all Labels");
         final List<LabelDTO> page = service.findAll();
         Response.ResponseBuilder response = Response.ok(page);
         return response.build();
@@ -66,14 +66,14 @@ public class LabelResource {
     @GET
     @Path("/{id}")
     public Response getOne(@PathParam("id") Long id) {
-        log.debug("REST request to get Label: {}", id);
+        log.info("REST request to get Label: {}", id);
         return ResponseUtil.wrapOrNotFound(Optional.of(service.findById(id)));
     }
 
     @Path("/{id}")
     @DELETE
     public Response delete(@PathParam("id") Long id) {
-        log.debug("REST request to delete Label: {}", id);
+        log.info("REST request to delete Label: {}", id);
         service.delete(id);
         Response.ResponseBuilder response = Response.noContent();
         HeaderUtil.createAlert(applicationName, "labelManagement.deleted", id.toString()).forEach(response::header);

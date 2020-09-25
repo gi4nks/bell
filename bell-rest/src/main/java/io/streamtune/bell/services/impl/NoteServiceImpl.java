@@ -32,14 +32,14 @@ public class NoteServiceImpl implements NoteService {
     @Override
     @Transactional
     public NoteDTO findById(Long id) {
-        log.debug("Request to get Note : {}", id);
+        log.info("Request to get Note : {}", id);
         return mapper.toDto(repository.findById(id));
     }
 
     @Override
     @Transactional
     public List<NoteDTO> findAll() {
-        log.debug("Request to get all Notes");
+        log.info("Request to get all Notes");
         return repository.listAll().stream()
                 .map(mapper::toDto).collect(Collectors.toList());
     }
@@ -47,6 +47,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     @Transactional
     public NoteDTO create(NoteDTO n) {
+        log.info("Request to create a new node {0}", n);
         Note note = mapper.toEntity(n);
 
         Set<Label> lbls = new HashSet<>();
@@ -56,7 +57,6 @@ public class NoteServiceImpl implements NoteService {
             Label nl = null;
             Optional<Label> ll = labelRepository.findByValue(label);
             if (ll.isPresent()) {
-                System.out.println("I found already a label: " + label);
                 nl = ll.get();
             } else {
                 nl = new Label();
@@ -82,6 +82,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     @Transactional
     public NoteDTO create(String n, List<String> labels) {
+        log.info("Request to create a new node {0} and {1}", n, labels);
         Note note = new Note();
         note.setValue(n);
 
@@ -90,7 +91,6 @@ public class NoteServiceImpl implements NoteService {
             Label nl = null;
             Optional<Label> ll = labelRepository.findByValue(label);
             if (ll.isPresent()) {
-                System.out.println("I found already a label: " + label);
                 nl = ll.get();
             } else {
                 nl = new Label();
@@ -119,7 +119,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     @Transactional
     public List<NoteDTO> findByLabel(String lbl) {
-        log.debug("Request to get all notes from label {0}", lbl);
+        log.info("Request to get all notes from label {0}", lbl);
         Optional<Label> label = labelRepository.findByValue(lbl);
 
         if (label.isPresent()) {

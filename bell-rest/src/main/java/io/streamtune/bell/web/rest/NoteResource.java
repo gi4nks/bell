@@ -38,7 +38,7 @@ public class NoteResource {
 
     @POST
     public Response create(@Valid NoteDTO noteDTO) {
-        log.debug("REST request to save Note : {}", noteDTO);
+        log.info("REST request to save Note : {}", noteDTO);
 
         if (noteDTO.getId() != null) {
             throw new BadRequestAlertException("A new note cannot already have an ID", "noteManagement", "idexists");
@@ -55,7 +55,7 @@ public class NoteResource {
 
     @GET
     public Response getAll() {
-        log.debug("REST request to get all Notes");
+        log.info("REST request to get all Notes");
         final List<NoteDTO> page = service.findAll();
         Response.ResponseBuilder response = Response.ok(page);
         return response.build();
@@ -64,14 +64,14 @@ public class NoteResource {
     @GET
     @Path("/{id}")
     public Response getOne(@PathParam("id") Long id) {
-        log.debug("REST request to get Note: {}", id);
+        log.info("REST request to get Note: {}", id);
         return ResponseUtil.wrapOrNotFound(Optional.of(service.findById(id)));
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        log.debug("REST request to delete Note: {}", id);
+        log.info("REST request to delete Note: {}", id);
         service.delete(id);
         Response.ResponseBuilder response = Response.noContent();
         HeaderUtil.createAlert(applicationName, "noteManagement.deleted", id.toString()).forEach(response::header);
@@ -81,14 +81,14 @@ public class NoteResource {
     @GET
     @Path("/label/{v}")
     public Response getByValue(@PathParam("v") String v) {
-        log.debug("REST request to get Note: {}", v);
+        log.info("REST request to get Note: {}", v);
         return ResponseUtil.wrapOrNotFound(Optional.of(service.findByLabel(v)));
     }
 
     @GET
     @Path("/last")
     public Response getLast() {
-        log.debug("REST request to get last Note");
+        log.info("REST request to get last Note");
         return ResponseUtil.wrapOrNotFound(Optional.of(service.findLast()));
     }
 
