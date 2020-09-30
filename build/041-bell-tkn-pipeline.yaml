@@ -1,0 +1,87 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: bell-rest-deploy
+spec:
+  params:
+    - name: deployment-name
+      type: string
+      description: name of the deployment to be patched
+    - name: git-url
+      type: string
+      description: url of the git repo for the code of deployment
+    - name: git-revision
+      type: string
+      description: revision to be used from repo of the code for deployment
+      default: "features/belless"
+    - name: IMAGE
+      type: string
+      description: image to be build from the code
+  workspaces:
+    - name: git-source
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+      - name: url
+        value: $(params.git-url)
+      - name: revision
+        value: $(params.git-revision)
+      - name: deleteExisting
+        value: 'true'
+      workspaces:
+      - name: output
+        workspace: git-source
+    - name: build-bell-cli-from-source
+      taskRef:
+        name: build-bell-cli
+      workspaces:
+      - name: source
+        workspace: git-source
+      runAfter:
+        - fetch-repository
+    - name: build-bell-rest-from-source
+      taskRef:
+        name: build-bell-rest
+      workspaces:
+      - name: source
+        workspace: git-source
+      runAfter:
+        - fetch-repository
+    - name: build-bell-rest-image
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+      - name: TLSVERIFY
+        value: "false"
+      - name: IMAGE
+        value: $(params.IMAGE)
+      workspaces:
+      - name: source
+        workspace: git-source
+      runAfter:
+      - build-bell-rest-from-source
+    - name: apply-manifests-bell-rest
+      taskRef:
+        name: apply-manifests
+      workspaces:
+      - name: source
+        workspace: git-source
+      runAfter:
+      - build-bell-rest-image
+    - name: update-bell-rest-deployment
+      taskRef:
+        name: update-deployment
+      workspaces:
+      - name: source
+        workspace: git-source
+      params:
+      - name: deployment
+        value: $(params.deployment-name)
+      - name: IMAGE
+        value: $(params.IMAGE)
+      runAfter:
+      - apply-manifests-bell-rest

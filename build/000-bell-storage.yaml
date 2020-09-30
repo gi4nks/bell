@@ -1,0 +1,14 @@
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: bell-build-pv-claim
+  labels:
+    app: bell
+spec:
+  storageClassName: managed-nfs-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

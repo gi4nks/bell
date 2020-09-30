@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  generateName: bell-deploy-run
+  resources:
+    - name: appSource
+      value: bell-git-source
+    - name: appImage
+      value: bell-rest-image
+  params:
+    - name: contextDir
+      value: "."
+  pipelineRef:
+    name: bell-rest-deploy
+  workspaces:
+  - name: shared-workspace
+    persistentVolumeClaim:
+      claimName: bell-build-pv-claim

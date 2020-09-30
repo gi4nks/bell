@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-bell-cli
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: contextDir
+      description: the context dir within source
+      default: .
+    - name: mavenMirrorUrl
+      description: the maven mirror url
+      default: https://repo.maven.apache.org/maven2/
+  steps:
+    - name: build-sources-bell-cli
+      image: docker.io/maven:3.6.3-jdk-11-slim
+      workingDir: "$(workspaces.source.path)/$(inputs.params.contextDir)/bell-cli" 
+      command: 
+        - mvn
+      args: 
+        - -DskipTests
+        - clean
+        - package
