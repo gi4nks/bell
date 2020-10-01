@@ -45,7 +45,6 @@ spec:
           workspace: git-source
       runAfter:
         - fetch-repository
-
     - name: build-bell-rest-from-source
       taskRef:
         name: maven
@@ -75,19 +74,24 @@ spec:
         workspace: git-source
       runAfter:
         - build-bell-rest-from-source
-    
-    - name: bell-rest-deploy-application
+    - name: apply-manifests-bell-rest
       taskRef:
-        name: deploy-application
-      runAfter:
-        - build-bell-rest-image
-      params:
-        - name: contextDir
-          value: ./bell-rest
-        - name: yamlFile
-          value: 'deploy.yaml'
-        - name: IMAGE
-          value: $(params.IMAGE)
+        name: apply-manifests
       workspaces:
         - name: source
           workspace: git-source
+      runAfter:
+        - build-bell-rest-image
+    - name: update-bell-rest-deployment
+      taskRef:
+        name: update-deployment
+      workspaces:
+        - name: source
+          workspace: git-source
+      params:
+        - name: deployment
+          value: $(params.deployment-name)
+        - name: IMAGE
+          value: $(params.IMAGE)
+      runAfter:
+        - apply-manifests-bell-rest

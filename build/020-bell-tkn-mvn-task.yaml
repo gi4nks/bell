@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: build-bell-cli
+  name: maven
 spec:
   workspaces:
     - name: source
@@ -15,7 +15,7 @@ spec:
   steps:
     - name: build-sources-bell-cli
       image: docker.io/maven:3.6.3-jdk-11-slim
-      workingDir: "$(workspaces.source.path)/$(inputs.params.contextDir)/bell-cli" 
+      workingDir: "$(workspaces.source.path)/$(inputs.params.contextDir)" 
       command: 
         - mvn
       args: 
