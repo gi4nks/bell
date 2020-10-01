@@ -14,7 +14,10 @@ spec:
       type: string
       description: revision to be used from repo of the code for deployment
       default: "features/belless"
-    - name: IMAGE
+    - name: IMAGE-CLI
+      type: string
+      description: image to be build from the code
+    - name: IMAGE-REST
       type: string
       description: image to be build from the code
   workspaces:
@@ -34,6 +37,7 @@ spec:
       workspaces:
         - name: output
           workspace: git-source
+
     - name: build-bell-cli-from-source
       taskRef:
         name: maven
@@ -45,6 +49,24 @@ spec:
           workspace: git-source
       runAfter:
         - fetch-repository
+
+    - name: build-bell-cli-image
+      taskRef:
+        name: buildah
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE-CLI)
+        - name: TLSVERIFY
+          value: "false"
+        - name: DOCKERFILE
+          value: "$(workspaces.source.path)/bell-cli/src/main/docker/Dockerfile.jvm"
+        - name: SUBFOLDER
+          value: "./bell-cli"
+      workspaces:
+      - name: source
+        workspace: git-source
+      runAfter:
+        - build-bell-cli-from-source
 
     - name: build-bell-rest-from-source
       taskRef:
@@ -63,7 +85,7 @@ spec:
         name: buildah
       params:
         - name: IMAGE
-          value: $(params.IMAGE)
+          value: $(params.IMAGE-REST)
         - name: TLSVERIFY
           value: "false"
         - name: DOCKERFILE
@@ -87,7 +109,7 @@ spec:
         - name: yamlFile
           value: '../knative/service.yaml'
         - name: IMAGE
-          value: $(params.IMAGE)
+          value: $(params.IMAGE-REST)
       workspaces:
         - name: source
           workspace: git-source

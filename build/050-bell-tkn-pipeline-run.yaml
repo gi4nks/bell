@@ -10,7 +10,9 @@ spec:
       value: 'https://github.com/gi4nks/bell.git'
     - name: git-revision
       value: 'features/belless'
-    - name: IMAGE
+    - name: IMAGE-CLI
+      value: 'image-registry.openshift-image-registry.svc:5000/glupo-playground/bell-cli:latest'
+    - name: IMAGE-REST
       value: 'image-registry.openshift-image-registry.svc:5000/glupo-playground/bell-rest:latest'
     - name: 'deployment-name'
       value: 'bell-rest'
