@@ -85,7 +85,7 @@ spec:
         - name: contextDir
           value: ./bell-rest
         - name: yamlFile
-          value: 'deploy.yaml'
+          value: '../knative/service.yaml'
         - name: IMAGE
           value: $(params.IMAGE)
       workspaces:
