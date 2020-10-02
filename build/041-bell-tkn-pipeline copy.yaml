@@ -45,6 +45,7 @@ spec:
           workspace: git-source
       runAfter:
         - fetch-repository
+
     - name: build-bell-rest-from-source
       taskRef:
         name: maven
@@ -74,6 +75,7 @@ spec:
         workspace: git-source
       runAfter:
         - build-bell-rest-from-source
+
     - name: apply-manifests-bell-rest
       taskRef:
         name: apply-manifests
@@ -82,6 +84,7 @@ spec:
           workspace: git-source
       runAfter:
         - build-bell-rest-image
+        
     - name: update-bell-rest-deployment
       taskRef:
         name: update-deployment

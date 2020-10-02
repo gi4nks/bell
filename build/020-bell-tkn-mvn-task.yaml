@@ -9,12 +9,16 @@ spec:
     - name: contextDir
       description: the context dir within source
       default: .
+    - name: nativeFlag
+      description: the context dir within source
+      default: '-Pnative'
     - name: mavenMirrorUrl
       description: the maven mirror url
       default: https://repo.maven.apache.org/maven2/
   steps:
     - name: build-sources-bell-cli
-      image: docker.io/maven:3.6.3-jdk-11-slim
+      #image: docker.io/maven:3.6.3-openjdk-11
+      image: quay.io/quarkus/centos-quarkus-maven:20.2.0-java11
       workingDir: "$(workspaces.source.path)/$(inputs.params.contextDir)" 
       command: 
         - mvn
@@ -22,3 +26,4 @@ spec:
         - -DskipTests
         - clean
         - package
+        - -Pnative
