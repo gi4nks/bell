@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,7 @@ public class NoteResource {
     NoteService service;
 
     @POST
+    @Counted(name = "NoteResource.create")
     public Response create(@Valid NoteDTO noteDTO) {
         log.info("REST request to save Note : {}", noteDTO);
 
@@ -59,6 +61,7 @@ public class NoteResource {
     }
 
     @GET
+    @Counted(name = "NoteResource.getAll")
     public Response getAll() {
         log.info("REST request to get all Notes");
         final List<NoteDTO> page = service.findAll();
@@ -74,6 +77,7 @@ public class NoteResource {
     }
 
     @DELETE
+    @Counted(name = "NoteResource.delete")
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         log.info("REST request to delete Note: {}", id);
@@ -84,6 +88,7 @@ public class NoteResource {
     }
 
     @GET
+    @Counted(name = "NoteResource.getByValue")
     @Path("/label/{v}")
     public Response getByValue(@PathParam("v") String v) {
         log.info("REST request to get Note: {}", v);
@@ -91,6 +96,7 @@ public class NoteResource {
     }
 
     @GET
+    @Counted(name = "NoteResource.last")
     @Path("/last")
     public Response getLast() {
         log.info("REST request to get last Note");

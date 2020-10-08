@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,7 @@ public class LabelResource {
     LabelService service;
 
     @POST
+    @Counted(name = "LabelResource.create")
     public Response create(@Valid LabelDTO labelDTO) {
         log.info("REST request to save Label : {}", labelDTO);
 
@@ -59,6 +61,7 @@ public class LabelResource {
     }
 
     @GET
+    @Counted(name = "LabelResource.getAll")
     public Response getAll() {
         log.info("REST request to get all Labels");
         final List<LabelDTO> page = service.findAll();
@@ -67,6 +70,7 @@ public class LabelResource {
     }
 
     @GET
+    @Counted(name = "LabelResource.getOne")
     @Path("/{id}")
     public Response getOne(@PathParam("id") Long id) {
         log.info("REST request to get Label: {}", id);
@@ -74,6 +78,7 @@ public class LabelResource {
     }
 
     @Path("/{id}")
+    @Counted(name = "LabelResource.delete")
     @DELETE
     public Response delete(@PathParam("id") Long id) {
         log.info("REST request to delete Label: {}", id);
