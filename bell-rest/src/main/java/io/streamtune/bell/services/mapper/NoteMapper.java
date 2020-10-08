@@ -16,6 +16,6 @@ public interface NoteMapper extends EntityMapper<NoteDTO, Note> {
 
     NoteDTO toDto(Note note);
 
-    @Mapping(target = "createdAt", ignore = true)
+    //@Mapping(target = "createdAt", ignore = true)
     Note toEntity(NoteDTO noteDTO);
 }
