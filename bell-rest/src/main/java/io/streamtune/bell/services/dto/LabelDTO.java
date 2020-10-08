@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class LabelDTO implements Serializable {
+    private static final long serialVersionUID = -575571569690891925L;
+    
     private Long id;
     private String value;
     private List<NoteDTO> notes;

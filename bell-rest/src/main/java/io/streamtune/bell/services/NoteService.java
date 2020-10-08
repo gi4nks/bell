@@ -1,9 +1,8 @@
 package io.streamtune.bell.services;
 
-import io.streamtune.bell.services.dto.NoteDTO;
-
 import java.util.List;
-import java.util.Optional;
+
+import io.streamtune.bell.services.dto.NoteDTO;
 
 public interface NoteService {
 

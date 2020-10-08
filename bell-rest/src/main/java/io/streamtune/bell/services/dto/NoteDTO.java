@@ -2,13 +2,11 @@ package io.streamtune.bell.services.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 public class NoteDTO implements Serializable {
+    private static final long serialVersionUID = 4110260933141170119L;
+    
     private Long id;
     private String value;
     private List<LabelDTO> labels;

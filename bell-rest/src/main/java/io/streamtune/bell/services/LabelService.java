@@ -1,12 +1,8 @@
 package io.streamtune.bell.services;
 
-import io.streamtune.bell.entities.Label;
-import io.streamtune.bell.entities.Note;
-import io.streamtune.bell.services.dto.LabelDTO;
-import io.streamtune.bell.services.dto.NoteDTO;
-
 import java.util.List;
-import java.util.Optional;
+
+import io.streamtune.bell.services.dto.LabelDTO;
 
 public interface LabelService {
 
