@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: bell-rest-deploy-only
+spec:
+  params:
+    - name: deployment-name
+      type: string
+      description: name of the deployment to be patched
+    - name: git-url
+      type: string
+      description: url of the git repo for the code of deployment
+    - name: git-revision
+      type: string
+      description: revision to be used from repo of the code for deployment
+      default: "features/belless"
+    - name: IMAGE-REST
+      type: string
+      description: image to be build from the code
+  workspaces:
+    - name: git-source
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: revision
+          value: $(params.git-revision)
+        - name: deleteExisting
+          value: 'true'
+      workspaces:
+        - name: output
+          workspace: git-source
+
+    - name: bell-rest-deploy-application
+      taskRef:
+        name: deploy-application
+      runAfter:
+        - fetch-repository
+      params:
+        - name: contextDir
+          value: ./bell-rest
+        - name: yamlFile
+          value: '../knative/service.yaml'
+        - name: IMAGE
+          value: $(params.IMAGE-REST)
+      workspaces:
+        - name: source
+          workspace: git-source
