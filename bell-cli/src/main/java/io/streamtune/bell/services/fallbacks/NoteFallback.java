@@ -11,7 +11,7 @@ import io.streamtune.bell.services.models.Note;
 
 public class NoteFallback implements FallbackHandler<Note> {
 
-    private static final Note EMPTY_NOTE = Note.of("empty", Collections.EMPTY_LIST, Instant.now());
+    private static final Note EMPTY_NOTE = Note.of("empty", Collections.EMPTY_LIST);
     @Override
     public Note handle(ExecutionContext context) {
         return EMPTY_NOTE;

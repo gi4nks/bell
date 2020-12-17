@@ -33,3 +33,21 @@ If you want to learn more about building native executables, please consult http
 1. docker build -f src/main/docker/Dockerfile.jvm -t gi4nks/bell-rest-jvm .
 2. docker tag <image tag> gi4nks/bell-rest-jvm:1.1
 3. docker push gi4nks/bell-rest-jvm:1.1
+
+
+
+3615  mvn clean package
+ 3616  mvn clean package -DskipTests
+ 3617  docker build -f src/main/docker/Dockerfile.jvm -t gi4nks/bell-rest-jvm .
+ 3618  docker tag 80ae40db4550 gi4nks/bell-rest-jvm:1.1
+ 3619  docker push gi4nks/bell-rest-jvm:1.1
+ 3620  kn service create bell-rest --image gi4nks/bell-rest-jvm:1.1
+ 3621  kn service create bell-rest --image gi4nks/bell-rest-jvm:1.1 --force
+ 3622  kn service delete bell-rest
+ 3623  kn service create bell-rest --image gi4nks/bell-rest-jvm:1.1
+ 3624  curl http://bell-rest-glupo-playground.apps.ocp-cluster-1.rhlab.ch/health/live
+ 3625  curl http://bell-rest-glupo-playground.apps.ocp-cluster-1.rhlab.ch/health
+ 3626  java -jar ./target/bell-cli-1.0.0-SNAPSHOT-runner.jar note all
+ 3627  java -jar ./target/bell-cli-1.0.0-SNAPSHOT-runner.jar note create -n="first note" -l="label1,label2,label3"
+ 3628  java -jar ./target/bell-cli-1.0.0-SNAPSHOT-runner.jar note all
+ 3629  kn service delete bell-rest

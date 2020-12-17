@@ -9,8 +9,7 @@ public class Note {
     public Long id;
     public String value;
     public List<Label> labels;
-    public Instant createdAt;
-
+    
     public static class Label {
         public String value;
     }
@@ -18,15 +17,14 @@ public class Note {
     public Note() {
     }
 
-    public Note(String value, List<Label> labels, Instant createdAt) {
+    public Note(String value, List<Label> labels) {
         this.value = value;
         this.labels = labels;
-        this.createdAt = createdAt;
     }
 
     @JsonbCreator
-    public static Note of(String value, List<Label> labels, Instant createdAt) {
-        return new Note(value, labels, createdAt);
+    public static Note of(String value, List<Label> labels) {
+        return new Note(value, labels);
     }
 
 }

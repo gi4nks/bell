@@ -20,11 +20,11 @@ public class LastNoteCommandOutputFormatter {
 
         String csv = String.join(",", lbls);
 
-        String[] headers = { "id", "value", "labels", "createdAt" };
+        String[] headers = { "id", "value", "labels" };
         String[][] data = {
                 { "[" + AnsiColors.ANSI_GREEN + note.id +
                         AnsiColors.ANSI_RESET + "]",
-                        note.value, csv, String.valueOf(note.createdAt) }
+                        note.value, csv }
         };
         System.out.println(FlipTable.of(headers, data));
     }

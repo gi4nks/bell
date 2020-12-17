@@ -16,8 +16,8 @@ public class GetNotesFromLabelCommandFormatter {
     }
 
     public void print() {
-        String[] headers = { "id", "value", "labels", "createdAt" };
-        String[][] data = new String[this.notes.size()][4];
+        String[] headers = { "id", "value", "labels" };
+        String[][] data = new String[this.notes.size()][3];
 
         for (int i=0; i<notes.size(); i++) {
             Note note = notes.get(i);
@@ -30,7 +30,6 @@ public class GetNotesFromLabelCommandFormatter {
                     AnsiColors.ANSI_RESET + "]";
             data[i][1] = note.value;
             data[i][2] = csv;
-            data[i][3] = String.valueOf(note.createdAt);
         }
         System.out.println(FlipTable.of(headers, data));
     }
