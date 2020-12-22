@@ -3,6 +3,9 @@ kind: PipelineRun
 metadata:
   name: bell-rest-deploy-run
 spec:
+  podTemplate:
+    nodeSelector:
+      kubernetes.io/hostname: storm5-10g.ocp5.stormshift.coe.muc.redhat.com
   pipelineRef:
     name: bell-rest-deploy
   params:
