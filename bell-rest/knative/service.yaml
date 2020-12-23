@@ -7,4 +7,4 @@ spec:
   template:
     spec:
       containers:
-        - image: gi4nks/bell-rest-jvm # Reference to the image of the app
+        - image: gi4nks/bell-rest-jvm:latest # Reference to the image of the app
