@@ -40,3 +40,10 @@ java -jar ./target/bell-1.0.0-SNAPSHOT-runner.jar note create -n "the second not
 ## GET the kourier endpoint
 export SVC_URL=`kubectl get rt greeter -o yaml | yq read - 'status.url'` && \
 http $SVC_URL
+
+
+
+# Import certificate in SDKMAN
+cd  ~/.sdkman/candidates/java/current/lib/security
+
+keytool -import -trustcacerts -keystore cacerts -storepass changeit -noprompt -alias stormshift -file /<path to bell>/bell/bell-cli/stormshift.cer

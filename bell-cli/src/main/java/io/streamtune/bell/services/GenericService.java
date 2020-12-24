@@ -7,14 +7,14 @@ public interface GenericService<T> {
     @GET
     @Path("/{id}")
     @Produces("application/json")
-    T getById(@PathParam("id") Long id);
+    T getById(@QueryParam("user_key") String userKey, @PathParam("id") Long id);
 
     @GET
     @Path("/")
     @Produces("application/json")
-    List<T> all();
+    List<T> all(@QueryParam("user_key") String userKey);
 
     @DELETE
     @Produces("application/json")
-    void truncateAll();
+    void truncateAll(@QueryParam("user_key") String userKey);
 }

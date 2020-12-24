@@ -16,11 +16,12 @@ import java.util.List;
 @RegisterRestClient
 public interface NotesService extends GenericService<Note> {
     @POST
+    @Path("/")
     @Produces("application/json")
     @Retry(maxRetries = 3, delay = 2000)
     @Fallback(NoteFallback.class)
     @CircuitBreaker(requestVolumeThreshold = 4, failureRatio = 0.75, delay = 5000)
-    Note create(Note note);
+    Note create(@QueryParam("user_key") String userKey, Note note);
 
     @GET
     @Path("/label/{v}")
@@ -28,7 +29,7 @@ public interface NotesService extends GenericService<Note> {
     @Retry(maxRetries = 3, delay = 2000)
     @Fallback(NotesFallback.class)
     @CircuitBreaker(requestVolumeThreshold = 4, failureRatio = 0.75, delay = 5000)
-    List<Note> findByLabel(@PathParam("v") String v);
+    List<Note> findByLabel(@QueryParam("user_key") String userKey, @PathParam("v") String v);
 
     @GET
     @Path("/last")
@@ -36,5 +37,5 @@ public interface NotesService extends GenericService<Note> {
     @Retry(maxRetries = 3, delay = 2000)
     @Fallback(NoteFallback.class)
     @CircuitBreaker(requestVolumeThreshold = 4, failureRatio = 0.75, delay = 5000)
-    Note findLast();
+    Note findLast(@QueryParam("user_key") String userKey);
 }

@@ -12,6 +12,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 @Path("/api/labels")
 @RegisterRestClient
@@ -23,5 +24,5 @@ public interface LabelsService extends GenericService<Label> {
     @Retry(maxRetries = 3, delay = 2000)
     @Fallback(LabelFallback.class)
     @CircuitBreaker(requestVolumeThreshold = 4, failureRatio = 0.75, delay = 5000)
-    Label getByValue(@PathParam String v);
+    Label getByValue(@QueryParam("user_key") String userKey, @PathParam String v);
 }

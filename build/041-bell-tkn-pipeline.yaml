@@ -59,7 +59,7 @@ spec:
         - name: TLSVERIFY
           value: "false"
         - name: DOCKERFILE
-          value: "$(workspaces.source.path)/bell-cli/src/main/docker/Dockerfile.native"
+          value: "$(workspaces.source.path)/bell-cli/src/main/docker/Dockerfile.jvm"
         - name: SUBFOLDER
           value: "./bell-cli"
       workspaces:
@@ -89,7 +89,7 @@ spec:
         - name: TLSVERIFY
           value: "false"
         - name: DOCKERFILE
-          value: "$(workspaces.source.path)/bell-rest/src/main/docker/Dockerfile.native"
+          value: "$(workspaces.source.path)/bell-rest/src/main/docker/Dockerfile.jvm"
         - name: SUBFOLDER
           value: "./bell-rest"
       workspaces:

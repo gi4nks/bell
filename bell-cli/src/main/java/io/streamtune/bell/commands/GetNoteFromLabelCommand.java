@@ -3,6 +3,8 @@ package io.streamtune.bell.commands;
 import io.streamtune.bell.formatters.GetNotesFromLabelCommandFormatter;
 import io.streamtune.bell.services.NotesService;
 import io.streamtune.bell.services.models.Note;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import picocli.CommandLine;
 
@@ -11,6 +13,9 @@ import java.util.List;
 
 @CommandLine.Command(name = "label", description = "Shows all the note in a label")
 public class GetNoteFromLabelCommand implements Runnable {
+    @ConfigProperty(name = "io.streamtune.bell.userKey") 
+    String userKey;
+    
     @Inject
     @RestClient
     NotesService service;
@@ -20,7 +25,7 @@ public class GetNoteFromLabelCommand implements Runnable {
 
     @Override
     public void run() {
-        List<Note> notes = service.findByLabel(lbl);
+        List<Note> notes = service.findByLabel(userKey, lbl);
         GetNotesFromLabelCommandFormatter formatter = new GetNotesFromLabelCommandFormatter(notes);
         formatter.print();
     }

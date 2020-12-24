@@ -3,6 +3,8 @@ package io.streamtune.bell.commands;
 import io.streamtune.bell.services.NotesService;
 import io.streamtune.bell.services.models.Note;
 import io.streamtune.bell.utils.AnsiColors;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import picocli.CommandLine;
 
@@ -11,6 +13,9 @@ import java.util.*;
 
 @CommandLine.Command(name = "create", description = "Create a note")
 public class CreateNoteCommand implements Runnable {
+    @ConfigProperty(name = "io.streamtune.bell.userKey") 
+    String userKey;
+
     @Inject
     @RestClient
     NotesService noteService;
@@ -36,11 +41,11 @@ public class CreateNoteCommand implements Runnable {
             labels.add(nl);
         }
 
+        System.out.println(nt.toString());
         nt.labels=labels;
-        nt = noteService.create(nt);
+        nt = noteService.create(userKey, nt);
         System.out.println(nt.value);
         System.out.format("[" + AnsiColors.ANSI_GREEN + "%s" + AnsiColors.ANSI_RESET + "]\n", nt.id);
-
     }
 }
 
