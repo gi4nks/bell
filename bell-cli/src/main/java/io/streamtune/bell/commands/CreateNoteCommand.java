@@ -41,7 +41,6 @@ public class CreateNoteCommand implements Runnable {
             labels.add(nl);
         }
 
-        System.out.println(nt.toString());
         nt.labels=labels;
         nt = noteService.create(userKey, nt);
         System.out.println(nt.value);
