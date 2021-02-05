@@ -8,7 +8,7 @@ public class LabelDTO implements Serializable {
     
     private Long id;
     private String value;
-    private List<NoteDTO> notes;
+    //private List<NoteDTO> notes;
 
     public Long getId() {
         return id;
@@ -26,6 +26,7 @@ public class LabelDTO implements Serializable {
         this.value = value;
     }
 
+    /*
     public List<NoteDTO> getNotes() {
         return notes;
     }
@@ -33,6 +34,7 @@ public class LabelDTO implements Serializable {
     public void setNotes(List<NoteDTO> notes) {
         this.notes = notes;
     }
+    */
 
     @Override
     public String toString() {

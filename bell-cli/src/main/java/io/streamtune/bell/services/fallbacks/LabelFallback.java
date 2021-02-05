@@ -10,7 +10,7 @@ import io.streamtune.bell.services.models.Label;
 
 public class LabelFallback implements FallbackHandler<Label> {
 
-    private static final Label EMPTY_LABEL = Label.of("empty", Collections.EMPTY_LIST);
+    private static final Label EMPTY_LABEL = Label.of("empty"); //, Collections.EMPTY_LIST);
     @Override
     public Label handle(ExecutionContext context) {
         return EMPTY_LABEL;

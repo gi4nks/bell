@@ -8,7 +8,7 @@ public class Label {
     public Long id;
     public String value;
 
-    public List<Note> notes;
+    /*public List<Note> notes;
 
     public static class Note {
         public String value;
@@ -22,6 +22,15 @@ public class Label {
     @JsonbCreator
     public static Label of(String value, List<Note> notes) {
         return new Label(value, notes);
+    }*/
+
+    public Label(String value) {
+        this.value = value;
+    }
+
+    @JsonbCreator
+    public static Label of(String value) {
+        return new Label(value);
     }
 
 }

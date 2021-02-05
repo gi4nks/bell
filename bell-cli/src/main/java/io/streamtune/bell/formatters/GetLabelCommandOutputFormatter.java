@@ -16,15 +16,16 @@ public class GetLabelCommandOutputFormatter {
     }
 
     public void print() {
-        List<String> notes = label.notes.stream().map(l -> l.value).collect(toList());
+        //List<String> notes = label.notes.stream().map(l -> l.value).collect(toList());
 
-        String csv = String.join(",", notes);
+        //String csv = String.join(",", notes);
+        String csv = "";
 
-        String[] headers = { "id", "value", "notes" };
+    String[] headers = { "id", "value"/*, "notes"*/ };
         String[][] data = {
                 { "[" + AnsiColors.ANSI_GREEN + label.id +
                         AnsiColors.ANSI_RESET + "]",
-                        label.value, csv }
+        label.value/*, csv*/ }
         };
         System.out.println(FlipTable.of(headers, data));
     }
